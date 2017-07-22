@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>NotificationHandler stg.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>NotificationHandler.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>607FE70F1F1C7D600047E03D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>607FE7261F1C96530047E03D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
