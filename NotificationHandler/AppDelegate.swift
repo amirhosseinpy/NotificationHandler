@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import UserNotifications
+import HockeySDK
 
 
 @UIApplicationMain
@@ -18,6 +19,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        notificationPermissionHandler(application: application)
+        setupHockey()
+        
+        // Notification in terminated app
+        notificationInTerminatedApp(launchOptions: launchOptions)
+        return true
+    }
+    
+    
+    func setupHockey(){
+        // Hockey
+        BITHockeyManager.shared().configure(withIdentifier: "f15304b7c76a4ab6a1c90a402949e90e")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
+    }
+    
+    func notificationPermissionHandler(application: UIApplication) {
         // iOS 10 support
         if #available(iOS 10, *) {
             UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
@@ -27,16 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.registerForRemoteNotifications()
         }
         
-        // Notification in terminated app
+    }
+    func notificationInTerminatedApp(launchOptions: [UIApplicationLaunchOptionsKey: Any]?){
         if launchOptions != nil {
             if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable : Any] {
                 
-                Helpers.runAfterDelay(4) {
+                //Helpers.runAfterDelay(1) {
                     _ = NotificationCenterHandler(notification: userInfo,appDelegate: self)
-                }
+                //}
             }
         }
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
