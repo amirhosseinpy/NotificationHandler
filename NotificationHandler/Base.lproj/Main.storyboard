@@ -171,6 +171,16 @@
                     <view key="view" contentMode="scaleToFill" id="EU8-Cm-ZBv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOj-AL-lcW">
+                                <rect key="frame" x="164" y="318" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="A19-Cv-5Tt" kind="show" id="CLh-yX-aji"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="ViewControllerD" id="asx-Nt-S4E">
@@ -180,6 +190,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HIe-LB-mwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3362" y="36"/>
+        </scene>
+        <!--Test-->
+        <scene sceneID="dAl-23-NIN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Test" id="A19-Cv-5Tt" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v2G-Of-dSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4351" y="35"/>
         </scene>
     </scenes>
 </document>

@@ -14,10 +14,26 @@ class ViewControllerC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        update()
         // Do any additional setup after loading the view.
     }
-   
-
+    override func viewDidAppear(_ animated: Bool) {
+        update()
+    }
+    
+    
+    func update(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let defaults = UserDefaults.standard
+        guard let _ = appDelegate.getNotificationDataType() else {
+            return
+        }
+        if let asset = defaults.string(forKey: Strings.getDefaultKeyByNotificationType(notificationType: appDelegate.getNotificationDataType()!)){
+            CButton.setTitle(asset, for: .normal)
+            defaults.set(nil, forKey: Strings.getDefaultKeyByNotificationType(notificationType: appDelegate.getNotificationDataType()!))
+        }
+    }
+    
     @IBOutlet weak var CButton: UIButton!
     @IBAction func CButton(_ sender: Any) {
         performSegue(withIdentifier: segue, sender: sender)

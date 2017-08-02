@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let gcmMessageIDKey = "gcm.message_id"
+    var notificationData : [AnyHashable : Any]?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -50,15 +51,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func notificationInTerminatedApp(launchOptions: [UIApplicationLaunchOptionsKey: Any]?){
         if launchOptions != nil {
-            if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable : Any] {
+            if let data = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable : Any] {
                 
                 //Helpers.runAfterDelay(1) {
-                    _ = NotificationCenterHandler(notification: userInfo,appDelegate: self)
+                notificationData = data
+                _ = NotificationCenterHandler(notification: data,appDelegate: self,direction: setDirection()/*,StoryboardId: setStoryboardId()*/)
                 //}
             }
         }
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -88,7 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Push notification received
     func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
         // Print notification payload data
-        _ = NotificationCenterHandler(notification: data,appDelegate: self)
+        notificationData = data
+        _ = NotificationCenterHandler(notification: data,appDelegate: self,direction: setDirection()/*,StoryboardId: setStoryboardId()*/)
         application.applicationIconBadgeNumber = 0
         print("Push notification received: \(data)")
     }
@@ -172,7 +175,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
+    func setDirection() -> [String: String] {
+        var direction : [String: String] = [:]
+        
+        direction[Strings.NotificationType.typeA.rawValue] = Strings.ViewControllerA
+        direction[Strings.NotificationType.typeB.rawValue] = Strings.ViewControllerA + "->" + Strings.ViewControllerB
+        direction[Strings.NotificationType.typeC.rawValue] = Strings.ViewControllerA + "->" + Strings.ViewControllerB + "->" + Strings.ViewControllerC
+        return direction
+    }
+//    func setStoryboardId() -> [String: String] {
+//        var StoryboardId : [String: String] = [:]
+//        
+//        StoryboardId[Strings.NotificationType.typeA.rawValue] = Strings.ViewControllerA
+//        StoryboardId[Strings.NotificationType.typeB.rawValue] = Strings.ViewControllerB
+//        StoryboardId[Strings.NotificationType.typeC.rawValue] = Strings.ViewControllerC
+//        return StoryboardId
+//    }
+    
+    func getNotificationDataType() -> String?{
+        if let noticationType = (notificationData?[Strings.notificationKeys.type.rawValue] as? String){
+            return noticationType
+        }
+        return nil
+    }
+    
 }
 // [START ios_10_message_handling]
 //@available(iOS 10, *)
@@ -244,5 +271,6 @@ extension UIApplication {
         }
         return controller
     }
+    
 }
 

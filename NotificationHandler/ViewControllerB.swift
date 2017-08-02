@@ -18,18 +18,34 @@ class ViewControllerB: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+//    override func viewWillAppear(_ animated: Bool) {
+////        update()
+//    }
+   
+//    func update(){
+//        let defaults = UserDefaults.standard
+//        if let asset = defaults.string(forKey: Strings.DefaultBkey){
+//            Bbutton.setTitle(asset, for: .normal)
+//            defaults.set(nil, forKey: Strings.DefaultBkey)
+//        }
+//        
+//    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         update()
     }
-   
+    
+    
     func update(){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let defaults = UserDefaults.standard
-        let asset = defaults.string(forKey: "Notification asset B")
-        if asset != nil{
-            Bbutton.setTitle(asset, for: .normal)
-            defaults.set(nil, forKey: "Notification asset B")
+        guard let _ = appDelegate.getNotificationDataType() else {
+            return
         }
-        
+        if let asset = defaults.string(forKey: Strings.getDefaultKeyByNotificationType(notificationType: appDelegate.getNotificationDataType()!)){
+            Bbutton.setTitle(asset, for: .normal)
+            defaults.set(nil, forKey: Strings.getDefaultKeyByNotificationType(notificationType: appDelegate.getNotificationDataType()!))
+        }
     }
 
     @IBOutlet weak var Bbutton: UIButton!
