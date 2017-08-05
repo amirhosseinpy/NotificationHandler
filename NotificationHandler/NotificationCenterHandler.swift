@@ -48,23 +48,27 @@ class NotificationCenterHandler{
     //    }
     func notificationFunctionsByState() {
         let state = UIApplication.shared.applicationState
-        switch state {
-        case .active:
-            activeFunctions()
-        case .background:
-            backgroundFunctions()
-            //        case .inactive:
-        //            inactiveFunction()
-        default:
-            backgroundFunctions()
+        if state == .active{
+            activeStateNotificationFunction()
+        }else{
+           backgroundStateNotificationFunction()
         }
+//        switch state {
+//        case .active:
+//            activeStateNotificationFunction()
+//            //activeFunctions()
+//        case .background:
+//            backgroundStateNotificationFunction()
+////            backgroundFunctions()
+//            //        case .inactive:
+//        //            inactiveFunction()
+//        default:
+//            backgroundStateNotificationFunction()
+////            backgroundFunctions()
+//        }
     }
     
-    func activeFunction(){
-        
-    }
-    
-    func activeFunctions() {
+//    func activeFunctions() {
 //        let type = getNotificationType()
 //        switch type {
 //        case Strings.NotificationType.typeA.rawValue:
@@ -76,9 +80,9 @@ class NotificationCenterHandler{
 //        default:
 //            typeANotificationHandlerActive()
 //        }
-        activeStateNotificationFunction()
-    }
-    func backgroundFunctions(){
+        
+//    }
+//    func backgroundFunctions(){
 //        let type = getNotificationType()
 //        switch type {
 //        case Strings.NotificationType.typeA.rawValue:
@@ -90,8 +94,8 @@ class NotificationCenterHandler{
 //        default:
 //            typeANotificationHandlerBackground()
 //        }
-        backgroundStateNotificationFunction()
-    }
+//        backgroundStateNotificationFunction()
+//    }
     //    func inactiveFunction() {
     //        Helpers.runAfterDelay(1, block: notificationFunctionsByState)
     //    }
