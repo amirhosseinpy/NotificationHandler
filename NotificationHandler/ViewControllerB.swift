@@ -42,9 +42,9 @@ class ViewControllerB: UIViewController {
         guard let _ = appDelegate.getNotificationDataType() else {
             return
         }
-        if let asset = defaults.string(forKey: Strings.NotificationType.typeB.rawValue){
+        if let asset = defaults.string(forKey: Strings.getDefaultKeyByNotificationType(notificationType: Strings.NotificationType.typeB.rawValue)){
             Bbutton.setTitle(asset, for: .normal)
-            defaults.set(nil, forKey: Strings.getDefaultKeyByNotificationType(notificationType: appDelegate.getNotificationDataType()!))
+            defaults.set(nil, forKey: Strings.getDefaultKeyByNotificationType(notificationType: Strings.NotificationType.typeB.rawValue))
         }
     }
 
